@@ -24,21 +24,24 @@ function install() {
   echo "Downloading from ${download_url}"
   curl -fLsS -H "Accept: application/octet-stream" -o "${download_filename}" "${download_url}"
 
+  echo "Installing to ${install_path}"
   mkdir -p unzip
   pushd unzip >/dev/null
-
   unzip "${tmp_download_dir}/${download_filename}"
-  mkdir -p ./bin
-  ln -s ../language_server.sh ./bin/elixir-ls
+  cp -fpr * "${install_path}"
 
-  if test -f ../debugger.sh; then
-    ln -s ../debugger.sh ./bin/elixir-ls-debugger
+  echo "Creating binaries in ${install_path}/bin"
+  mkdir -p "${install_path}/bin"
+  ln -s "${install_path}/language_server.sh" "${install_path}/bin/elixir-ls"
+
+  if test -f "${install_path}/debugger.sh"; then
+    ln -s "${install_path}/debugger.sh" "${install_path}/bin/elixir-ls-debugger"
   fi
-  if test -f ../debug_adapter.sh; then
-    ln -s ../debug_adapter.sh ./bin/elixir-ls-debugger
+  if test -f "${install_path}/debug_adapter.sh"; then
+    ln -s "${install_path}/debug_adapter.sh" "${install_path}/bin/elixir-ls-debugger"
   fi
 
-  cp -fpr ../* "${install_path}"
+  echo "Cleaning up"
 
   popd >/dev/null
   popd >/dev/null
