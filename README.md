@@ -6,7 +6,7 @@
 ## Install
 
 ```bash
-asdf plugin-add elixir-ls https://github.com/juantascon/asdf-elixir-ls
+asdf plugin-add elixir-ls https://github.com/m1ome/asdf-elixir-ls
 ```
 
 ## Use
